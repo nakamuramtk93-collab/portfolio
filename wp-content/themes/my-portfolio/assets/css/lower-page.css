@@ -1,0 +1,290 @@
+@charset "utf-8";
+
+/* ====================================
+    Works/About特設ページ
+   ==================================== */
+
+/* ====================================
+    1.キービジュアル
+   ==================================== */
+.key-visual.lower-kv {
+    /* position: sticky; を解除し、キービジュアルが重ならないように設定 */
+    /* stickyを上書きする */
+    position: relative;
+    /* sticky時のtop: 0;の設定を解除 */
+    top: auto;
+    /* KVの高さを設定 */
+    height: 0vh;
+}
+
+.key-visual.lower-kv h1 {
+    position: absolute;
+    /* 見出しの高さを設定 */
+    top: 45px;
+    /* 見出しの横幅を設定 */
+    left: 20px;
+    /* テキストを左寄せに設定 */
+    text-align: left;
+    /* 見出しのフォントカラーをグレー調に設定 */
+    color: var(--text-color);
+    /* 見出しのフォントサイズを設定 */
+    font-size: 1.9rem;
+    /* 文字の影を削除 */
+    text-shadow: none;
+}
+
+.key-visual.lower-kv h1 span {
+    /* サブコメントのフォントカラーを設定 */
+    /* color: var(--text-color); */
+    /* 見出し（h1）のサブコメント */
+    font-size: 0.9rem;
+    /* 文字の影を削除 */
+    text-shadow: none;
+}
+
+/* ====================================
+    メディアクエリ (PCサイズ: 768px以上)
+   ==================================== */
+@media (min-width: 768px) {
+    .key-visual.lower-kv h1 {
+        /* 見出しを絶対配置に設定 */
+        position: absolute;
+        /* 見出しの高さを設定 */
+        top: 25px;
+        /* 見出しの横を設定（13%から左に微調整） */
+        left: 80px;
+        /* マージンをリセット */
+        margin-left: 0;
+        margin-right: 0;
+        /* 文字の大きさを調整 */
+        font-size: 2.5rem;
+        /* テキストを左寄せに設定 */
+        text-align: left;
+        /* 文字の影を削除 */
+        text-shadow: none;
+    }
+}
+
+/* ====================================
+    2.Worksセクション（一覧ページ用）
+   ==================================== */
+
+/* --- リンク自体の下線を消す（ここを追加） --- */
+.work-item-link {
+    text-decoration: none !important;
+    /* ブラウザ標準のリンク下線を強制削除 */
+    color: inherit;
+    /* 文字色を親要素から引き継ぐ */
+    display: block;
+    /* カード全体をリンクとして機能させる */
+}
+
+.works-detail-wrapper {
+    background-color: var(--section-bg-solid);
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 60px 20px;
+}
+
+.work-item {
+    margin-bottom: 50px;
+}
+
+.work-item h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    /* 修正：枠線としての線を消す */
+    border-bottom: none !important;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    /* 補足：リンクの下線も念のためここでも打ち消す */
+    text-decoration: none !important;
+}
+
+.work-content-flex {
+    /* Flexboxを有効にし、画像と説明文を横並びにする */
+    display: flex;
+    /* 画面幅が足りない場合に子要素を折り返す */
+    flex-wrap: wrap;
+}
+
+.work-img {
+    /* Flexアイテムの拡大率を1に設定 */
+    /* 余った空間があれば、隣の要素と均等に分け合って、幅をいっぱいに広げる */
+    /* これにより、PCサイズでは、画像エリアと説明文エリアが約50%ずつの幅で綺麗に横並びになる。 */
+    flex: 1;
+    /* 最小幅を300ピクセルに設定し、これ以上小さくならないようにする */
+    min-width: 300px;
+}
+
+.work-img img {
+    /* 画像の幅を親要素に合わせる */
+    width: 100%;
+    /* 高さを自動調整 */
+    height: auto;
+    /* 角を丸くする */
+    border-radius: 10px;
+    /* 影をつけて立体感を出す */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.work-desc {
+    /* Flexアイテムの拡大率を1に設定 */
+    flex: 1;
+    /* 最小幅を300ピクセルに設定し、これ以上小さくならないようにする */
+    min-width: 300px;
+}
+
+.work-table {
+    /* テーブルの幅を100%に設定 */
+    width: 100%;
+    /* テーブルの境界線を結合（二重線をなくす） */
+    border-collapse: collapse;
+    /* 上部に余白を設定 */
+    margin-top: 20px;
+}
+
+.work-table th, .work-table td {
+    padding: 15px;
+    /* 修正：テーブル内の枠線を消す */
+    border-bottom: none !important;
+    text-align: left;
+    font-size: 0.9rem;
+    /* 補足：リンクの下線を消す */
+    text-decoration: none !important;
+}
+
+.work-table th {
+    /* 見出し列の幅を30%に設定 */
+    width: 30%;
+    /* 文字色をプライマリカラー（濃い青）に設定 */
+    color: var(--primary-color);
+}
+
+/* ====================================
+    メディアクエリ (PCサイズ: 768px以上)
+   ==================================== */
+@media (min-width: 768px) {
+    .works-detail-wrapper {
+        /* 横並びに設定 */
+        display: grid;
+        /* 項目の余白 */
+        gap: 50px;
+        /* コラム数を設定 */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .work-item {
+        /* 各作品要素の下に余白を設定 */
+        margin-bottom: 20px;
+    }
+
+    .work-table th, .work-table td {
+        /* 文字の大きさを調整 */
+        font-size: 0.9rem;
+    }
+}
+
+/* ====================================
+    3.aboutセクション
+   ==================================== */
+.about-detail-wrapper {
+    /* 背景色を薄いグレーに設定 */
+    background-color: var(--section-bg-solid);
+    /* コンテンツの最大幅を800ピクセルに制限 */
+    max-width: 800px;
+    /* 左右マージンをautoに設定し、コンテナを中央寄せにする */
+    margin: 0 auto;
+    /* 上下80px、左右20pxのパディングを設定 */
+    padding: 80px 20px;
+    /* Flexboxを有効化 */
+    display: flex;
+    /* 子要素を縦一列に並べる（モバイルデフォルト） */
+    flex-direction: column;
+    /* 子要素を中央寄せにする */
+    align-items: center;
+    /* 子要素間の隙間を40pxに設定 */
+    gap: 40px;
+}
+
+/* About ページ内のテキスト/スキルリストのスタイル */
+.profile-text h3 {
+    /* フォントサイズを1.8remに設定 */
+    font-size: 1.8rem;
+    /* 下部に余白を設定 */
+    margin-bottom: 15px;
+    /* テキストを中央寄せ */
+    text-align: center;
+    /* 文字色をプライマリカラー（濃い青）に設定 */
+    color: var(--primary-color);
+}
+
+.skill-list {
+    /* 上部に余白を設定 */
+    margin-top: 30px;
+    /* 背景色を白に設定 */
+    background-color: white;
+    /* 内部パディングを設定 */
+    padding: 20px;
+    /* 角を丸くする */
+    border-radius: 10px;
+}
+
+.skill-list ul {
+    /* リストマーカーをdisc（黒丸）に設定 */
+    list-style: disc;
+    /* リストマーカー分の左側余白を設定 */
+    margin-left: 20px;
+}
+
+/* ====================================
+    メディアクエリ (PCサイズ: 768px以上)
+   ==================================== */
+@media (min-width: 768px) {
+
+    /* About詳細を横並びに */
+    .about-detail-wrapper {
+        /* 子要素を横並びにする */
+        flex-direction: row;
+        /* 子要素を上端から配置する */
+        align-items: flex-start;
+    }
+
+    .profile-text h3 {
+        /* PCではテキストを左寄せに戻す */
+        text-align: left;
+    }
+}
+
+/* ====================================
+    WORKS下層ページ用 - ホバーアニメーション
+   ==================================== */
+
+/* アニメーションの基本設定 */
+.work-item {
+    /* 子要素（内部要素）の位置決めの基準点として設定 */
+    position: relative;
+    /* 要素からはみ出た内容を非表示 */
+    overflow: hidden;
+    /* 初期状態の影をわずかに設定（デザインによるが、ここでは影なしに） */
+    box-shadow: none;
+    /* マウスオーバー時のアニメーションを0.3秒かけて滑らかに実行 */
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    /* ※ 下層ページの .work-item には、背景色とボーダーを設定することで、よりカードらしい見た目に設定 */
+    background-color: var(--section-bg-solid);
+    border-radius: 8px;
+}
+
+/* 💡 ホバーアニメーション（上に移動し、影が濃くなる） */
+.work-item:hover {
+    /* マウスオーバー時、カードを縦方向（Y軸）に10px上に持ち上げる */
+    transform: translateY(-10px);
+    /* マウスオーバー時、影を濃くして立体感を出す */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 画像に角丸などの設定をする場合は、以下で調整 */
+.work-item .work-img {
+    overflow: hidden;
+}

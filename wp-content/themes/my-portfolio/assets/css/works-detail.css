@@ -1,0 +1,161 @@
+@charset "utf-8";
+
+/* ====================================
+    WORKS詳細ページ専用スタイル
+   ==================================== */
+/* --- 1. 全体のコンテナ・余白設定 --- */
+.work-detail-content {
+    /* 修正：モバイル時の上の余白を 40px から 20px に変更 */
+    padding: 20px 20px 40px 20px;
+    /* 上 右 下 左 の順 */
+    /* コンテンツが広がりすぎないように最大幅を設定 */
+    max-width: 1000px;
+    /* 左右に auto を入れることで、max-widthの範囲内で中央に配置されます */
+    margin: 0 auto;
+}
+
+/* タイトルエリア（ヘッダー） */
+.work-detail-content header {
+    /* 下に余白を追加して、その後のテーブルや画像と離す */
+    margin-bottom: 60px;
+    /* 補足：h1タグ自体のブラウザ標準マージンを消すと、さらに余白が詰まります */
+}
+
+.work-detail-content header h1 {
+    margin-top: 0;
+}
+
+/* --- 2. 基本情報テーブル（Summary Table） --- */
+.detail-table {
+    /* テーブルの幅を100%に設定 */
+    width: 100%;
+    /* テーブルの境界線を結合（二重線をなくす） */
+    border-collapse: collapse;
+    /* 修正：テーブル全体の余白をさらに狭く設定（40px → 20px） */
+    margin-bottom: 20px;
+}
+
+.detail-table th, .detail-table td {
+    /* 修正：行の間隔をさらに詰め、上下のパディングを最小限に設定 */
+    padding: 0px 0;
+    /* 横線を不要にするため削除 */
+    border-bottom: none;
+    /* テキストを左寄せ */
+    text-align: left;
+    /* 文字の大きさを調整 */
+    font-size: 0.9rem;
+}
+
+.detail-table th {
+    /* 見出し列の幅を30%に設定 */
+    width: 30%;
+    /* 文字色をプライマリカラー（濃い青）に設定 */
+    color: var(--primary-color);
+    /* 見出しを太字にして視認性を確保 */
+    font-weight: bold;
+}
+
+/* --- 3. 挿入画像の設定（画面高さの半分、横幅はいっぱい） --- */
+.work-detail-image {
+    /* 画像コンテナの上下に余白を設定 */
+    margin: 40px 0;
+    /* 横幅をコンテナの端から端まで広げる */
+    width: 100%;
+}
+
+.work-detail-image img {
+    /* 高さを画面の高さの50%に固定 */
+    height: 50vh;
+    /* 横幅を親要素に対して100%（最大）にする */
+    width: 100%;
+    /* 画像が横に引き伸ばされて歪むのを防ぐために設定 */
+    object-fit: cover;
+
+    /* 以前お伝えした max-width: 800px などの制限があれば削除または100%に */
+    max-width: 100%;
+
+    /* 装飾 */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 4. 各セクション（article）の左右配置レイアウト --- */
+.work-detail-content article {
+    /* Flexboxを有効にして、見出しと本文を横並びにする */
+    display: flex;
+    /* 折り返しは不要（PC時） */
+    flex-wrap: nowrap;
+    /* セクションの下に余白 */
+    margin-bottom: 40px;
+    /* セクション間の区切り線 */
+    padding: 20px 0;
+    /* 下線を消すために修正 */
+    border-bottom: none;
+}
+
+/* 見出し（h2）を左側に固定 */
+.work-detail-content article .section-heading {
+    /* PCでは見出しに30%の幅を確保 */
+    flex-basis: 30%;
+    /* 縮まないように固定 */
+    flex-shrink: 0;
+    /* 本文との間に隙間を作る */
+    padding-right: 20px;
+}
+
+/* 見出し内の英語(span)のサイズ調整 */
+.work-detail-content article .section-heading .english {
+    /* 日本語の見出しに対して小さく設定 */
+    font-size: 0.8rem;
+    /* 文字の色を薄くして強弱をつける */
+    color: #888;
+    /* 日本語との間に隙間を作る */
+    margin-left: 10px;
+    /* 文字の太さを標準にして目立たせすぎない */
+    font-weight: 400;
+}
+
+/* 本文（pやul）を右側に配置 */
+.work-detail-content article p,
+.work-detail-content article ul {
+    /* 残りの幅をすべて使用する */
+    flex-grow: 1;
+    /* 左寄せ */
+    text-align: left;
+}
+
+/* リスト（ul）のマーカー設定 */
+.work-detail-content article ul {
+    margin: 0;
+    /* マーカーが表示されるように余白を確保 */
+    padding-left: 20px;
+    list-style: disc;
+}
+
+/* --- 5. メディアクエリ (PCサイズ: 768px以上での追加調整) --- */
+@media (min-width: 768px) {
+    .work-detail-content {
+        /* 修正：PC表示時の上の余白を 80px から 40px に狭める */
+        padding-top: 40px;
+        /* 左右の余白はそのまま維持 */
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 80px;
+    }
+}
+
+/* --- 6. レスポンシブ調整（モバイル時: 767px以下） --- */
+@media (max-width: 767px) {
+    .work-detail-content article {
+        /* スマホでは縦並びに切り替える */
+        flex-direction: column;
+    }
+
+    .work-detail-content article .section-heading {
+        /* 横幅制限を解除 */
+        flex-basis: auto;
+        /* 下の本文との間に余白を作る */
+        margin-bottom: 10px;
+        padding-right: 0;
+    }
+}

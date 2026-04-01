@@ -1,0 +1,334 @@
+@charset "utf-8";
+
+/* ====================================
+    /* 1. カラーの共通設定
+   ==================================== */
+:root {
+    /* カラー変数定義 */
+    /* ナビゲーションバーや背景に使用する濃い黒色 */
+    --nav-color: #1a1a1a;
+    /* 主要な要素（フッター背景、キービジュアルなど）に使用する濃い青色 */
+    --primary-color: #334257;
+    /* 薄い黄色。主にサイト全体の背景色や透過セクションの基盤色として使用 */
+    --secondary-color: #F8F4E1;
+    /* 強調色（ホバー時、アクセントラインなど）に使用する濃い青色 */
+    --accent-color: #1556cd;
+    /* --accent-color: #FCA311; */
+    /* 本文に使用する濃いグレー */
+    --text-color: #333333;
+    /* text-colorより少し明るめのグレー。ホバー時のカラーに使用 */
+    --text-sub-color: #575757;
+    /* 明るい色（白）。濃い背景色上のテキストに使用 */
+    --text-light-color: #fbfaf8;
+
+    /* レイアウト変数定義 */
+    /* PC表示時のサイドバーの固定幅（200ピクセル） */
+    --sidebar-width: 200px;
+    /* コンテンツセクションの半透明背景色（若干透けている暖かみのあるグレー） */
+    --section-bg-solid: rgba(228, 228, 228, 0.95);
+    /* --section-bg-solid: rgba(242, 241, 239, 0.95); */
+    /* カードコメントエリアなど、より高い透明度が求められる場所で使用 */
+    --section-bg-transparent: rgba(248, 44, 225, 0.0);
+}
+
+/* ====================================
+    /* ２. bodyの共通設定
+   ==================================== */
+body {
+    /* 欧文フォント(Montserrat)と日本語フォント(Noto Sans JP)を指定し、汎用フォント(sans-serif)を設定 */
+    font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+    /* カスタムプロパティ（--text-color）で設定された濃いグレーを文字色に設定 */
+    color: var(--text-color);
+    /* カスタムプロパティ（--secondary-color）で設定された薄い黄色を背景色に設定 */
+    background-color: var(--section-bg-solid);
+    /* 行の高さを文字サイズの1.6倍に設定 */
+    line-height: 1.6;
+    /* 横方向のスクロールバーを非表示にし、横スクロールを防ぐ */
+    overflow-x: hidden;
+}
+
+/* ====================================
+    /* 3. サイドバーナビゲーション
+   ==================================== */
+.sidebar-nav {
+    /* 画面の左上を基準に、常にその場に留まるよう**固定** */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 幅を画面いっぱい (100%) に設定 */
+    width: 100%;
+    /* 高さは内容に応じて自動調整 */
+    height: auto;
+    /* 最小の高さを60pxに設定し、コンテンツに左右されない高さを保証 */
+    min-height: 60px;
+    /* ナビゲーション背景色を濃い黒色に設定 */
+    background-color: var(--nav-color);
+    /* ナビゲーションの文字色を白色に設定 */
+    color: var(--text-light-color);
+    /* Flexboxを有効化し、中の要素（ロゴとハンバーガー）を横並びにする */
+    display: flex;
+    flex-direction: row;
+    /* 要素を両端に寄せる（ロゴを左、ハンバーガーを右） */
+    justify-content: space-between;
+    /* 要素を上下中央に揃える */
+    align-items: center;
+    /* 上下10px、左右20pxの余白を設定 */
+    padding: 10px 20px;
+    /* paddingとborderをwidth/heightに含めて計算 */
+    box-sizing: border-box;
+    /* 他の要素（コンテンツなど）よりも手前に表示されるよう設定 */
+    z-index: 100;
+}
+
+.sidebar-nav .logo {
+    font-family: 'Montserrat', sans-serif;
+    /* フォントサイズ */
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* 下部のマージンをモバイルでは0に設定 */
+    margin-bottom: 0;
+    /* サイズが変化しないよう固定 */
+    flex-shrink: 0;
+}
+
+.sidebar-nav .logo a {
+    color: var(--text-light-color);
+    /* テキストの下線（リンクの装飾）を削除 */
+    text-decoration: none;
+}
+
+/* ====================================
+    ハンバーガーメニューの設定
+   ==================================== */
+/* ハンバーガーボタンのスタイル */
+.hamburger {
+    /* Flexboxで3本の線を縦に並べる */
+    display: flex;
+    flex-direction: column;
+    /* 3本の線を均等な間隔で配置 */
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    /* 背景と境界線を透明・非表示に */
+    background: transparent;
+    border: none;
+    /* マウスオーバー時にカーソルをポインターに変更 */
+    cursor: pointer;
+    padding: 0;
+    /* ナビゲーション（z-index: 100）よりもさらに手前に表示（最前面） */
+    z-index: 110;
+}
+
+.hamburger .line {
+    /* 要素をブロック要素として表示し、幅と高さを制御可能にする */
+    display: block;
+    /* 親要素（.hamburger）の幅いっぱいに広げる */
+    width: 100%;
+    /* 線の高さを3ピクセルに設定 */
+    height: 3px;
+    /* 線の色を白色（ナビゲーションバーの文字色）に設定 */
+    background-color: var(--text-light-color);
+    /* **変形（transform）を含む**すべてのアニメーション（位置、回転など）に0.3秒かけて滑らかに変化させる */
+    transition: all 0.3s;
+}
+
+/* ハンバーガーアイコンのアニメーション（バツ印） */
+/* メニューが開いたとき（aria-expanded="true"）に真ん中の線を透明にする */
+.hamburger[aria-expanded="true"] .line:nth-child(2) {
+    opacity: 0;
+}
+
+/* 1本目の線を斜め45度に回転させ、中央に移動（バツの上半分） */
+.hamburger[aria-expanded="true"] .line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+/* 3本目の線を斜め-45度に回転させ、中央に移動（バツの下半分） */
+.hamburger[aria-expanded="true"] .line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+
+/* メニューリスト（スマホ向け） */
+.sidebar-nav ul {
+    /* リストマーカー（・など）を非表示にする */
+    list-style: none;
+    /* 内側と外側の余白をリセット */
+    padding: 0;
+    margin: 0;
+    /* 画面全体を覆うオーバーレイメニューとして機能させるための基準設定 */
+    position: fixed;
+    /* 固定ヘッダー（60px）の直下からメニューを開始 */
+    top: 60px;
+    /* 画面の右端に固定 */
+    right: 0;
+    /* 幅を画面いっぱい (100%) に設定 */
+    width: 100%;
+    /* 画面の高さ（100vh）から固定ヘッダー（60px）の高さを引いた分をメニューの高さとする */
+    height: calc(100vh - 60px);
+    /* 背景色をナビゲーションと同じ濃い黒色に設定 */
+    background-color: var(--nav-color);
+    /* 初期状態では**非表示**（ハンバーガーがクリックされるまで） */
+    display: none;
+    /* Flexboxを有効化し、項目を縦に並べる */
+    flex-direction: column;
+    /* 項目を中央寄せにする */
+    align-items: center;
+    /* 項目を上下中央に揃える */
+    justify-content: center;
+    /* 初期状態の透明度を0に設定（フェードインの準備） */
+    opacity: 0;
+    /* 透明度変化を0.3秒かけて滑らかに実行する */
+    transition: opacity 0.3s;
+}
+
+/* メニュー表示時のスタイル */
+.sidebar-nav ul[aria-expanded="true"] {
+    /* JavaScriptによって **aria-expanded="true"** 属性が付与されたときに実行 */
+    /* display: none から display: flex に切り替え、メニューを表示 */
+    display: flex;
+    /* 透明度を1に戻し、メニューをフェードインさせる */
+    opacity: 1;
+}
+
+/* モバイルメニュー内のリストアイテム（li）スタイル */
+.sidebar-nav li {
+    /* リスト項目間の下部マージンを25pxに設定 */
+    margin-bottom: 25px;
+}
+
+/* モバイルメニュー内のリンク（a）スタイル */
+.sidebar-nav a {
+    color: var(--text-light-color);
+    /* テキストの下線（リンクの装飾）を削除 */
+    text-decoration: none;
+    /* モバイルメニューで大きく、見やすいフォントサイズに設定 */
+    font-size: 1.8rem;
+    /* リンクのクリック領域を広げるためのパディング */
+    padding: 10px 20px;
+    /* パディングを適用するためブロック要素として表示 */
+    display: block;
+    /* 角を丸くする */
+    border-radius: 5px;
+    /* 背景色と文字色の変化を0.3秒かけて滑らかに実行 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* リンクにマウスカーソルが乗ったときのスタイル（ホバーエフェクト） */
+.sidebar-nav a:hover {
+    /* 文字色をアクセントカラーに設定 */
+    color: var(--accent-color);
+}
+
+/* 3. フッター */
+.main-footer {
+    /* スマホではサイドバーがないため、左マージンを0に設定。PCではメディアクエリで上書きされる */
+    margin-left: 0;
+    /* 上部50px、左右40px、下部20pxのパディングを設定 */
+    padding: 50px 40px 20px;
+    /* テキストを中央寄せにする */
+    text-align: center;
+    /* フォントサイズを小さく設定 */
+    font-size: 0.8rem;
+    /* 背景色を濃い青色に設定 */
+    background-color: var(--primary-color);
+    /* 文字色を白色に設定 */
+    color: var(--text-light-color);
+}
+
+/* ====================================
+Worksセクションのカードリンク装飾をリセット
+====================================*/
+.card-container .card {
+    text-decoration: none;
+    /* 下線を消す */
+    color: inherit;
+    /* 文字色を親要素（元々の色）から引き継ぐ */
+    display: block;
+    /* カード全体をクリック可能にする */
+}
+
+/* ホバー（マウスを乗せた時）のスタイルも指定*/
+.card-container .card:hover {
+    opacity: 0.8;
+    /* 少し薄くして、クリックできることを伝えます */
+    text-decoration: none;
+    /* ホバー時も下線は不要 */
+    color: inherit;
+    /* ホバー時も色は変えない */
+}
+
+/* タイトル部分に特定の色を指定している場合、念のためここもリセット */
+.card-comment-area h3,
+.card-comment-area p {
+    text-decoration: none;
+}
+
+/* ====================================
+    メディアクエリ (PCサイズ: 768px以上)
+   ==================================== */
+@media (min-width: 768px) {
+
+    /* PCサイズではハンバーガーボタン（モバイルメニューのトリガー）を完全に非表示にする */
+    .hamburger {
+        display: none;
+    }
+
+    /* 1. PCサイドバーの復元 */
+    .sidebar-nav {
+        /* サイドバー幅を保持 */
+        width: var(--sidebar-width);
+        /* 画面いっぱいの高さ（縦方向のナビゲーションとして固定） */
+        height: 100vh;
+        /* 位置を画面左端に固定し続ける */
+        position: fixed;
+        /* Flexboxのアイテム（ロゴとリスト）を縦方向に並べる */
+        flex-direction: column;
+        /* アイテムを上端から配置し始める */
+        justify-content: flex-start;
+        /* アイテムを中央に揃える */
+        align-items: center;
+        /* 上下左右20pxのパディングに戻す */
+        padding: 20px;
+    }
+
+    .sidebar-nav .logo {
+        /* PC向けにフォントサイズをやや大きく戻す */
+        font-size: 1.8rem;
+        /* モバイルで0だった下部マージンを大きな値（ビューポート高さの25%）に設定し、リストを下に押し下げる */
+        margin-bottom: 25vh;
+    }
+
+    /* PCサイドバーのリンクリスト */
+    .sidebar-nav ul {
+        /* モバイルで display: none だったものを display: block に設定し、**常に表示**する */
+        display: block;
+        /* モバイルで設定されていた画面全体固定を解除し、親要素（.sidebar-nav）内の通常の配置に戻す */
+        position: static;
+        /* 幅と高さを内容に応じて自動調整 */
+        width: auto;
+        height: auto;
+        /* モバイルメニューのフェードアウト設定を解除し、完全に表示させる */
+        opacity: 1;
+    }
+
+    .sidebar-nav a {
+        /* モバイルメニューで大きく設定されていたフォントサイズを、PC向けに小さく戻す */
+        font-size: 1.6rem;
+
+        font-weight: 600;
+        /* PC向けにパディングを小さく調整 */
+        padding: 8px 10px;
+    }
+
+    .sidebar-nav li {
+        /* PC向けにリスト項目間のマージンを30pxに調整 */
+        margin-bottom: 30px;
+    }
+
+    /* 2. フッターの修正 */
+    .main-footer {
+        /* 固定サイドバーの幅（--sidebar-width）と同じ分だけフッターを右にずらし、メインコンテンツと位置を合わせる */
+        margin-left: var(--sidebar-width);
+    }
+}

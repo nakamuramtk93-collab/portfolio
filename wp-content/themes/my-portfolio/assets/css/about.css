@@ -1,0 +1,331 @@
+@charset "utf-8";
+
+/* ====================================
+   Aboutページ専用 全体リセットと調整
+   ==================================== */
+.about-page-section {
+    /* セクション上下に100px、左右に20pxの余白を設定 */
+    padding: 100px 20px;
+    /* 背景色（白系）を適用 */
+    background-color: var(--section-bg-solid);
+    /* 高さをコンテンツ量に合わせる */
+    height: auto !important;
+    /* 通常のブロック配置に戻す */
+    display: block !important;
+    /* 擬似要素の基準点にする */
+    position: relative;
+}
+
+.about-container {
+    /* コンテンツの最大幅を1100pxに設定 */
+    max-width: 1100px;
+    /* コンテナを中央に配置 */
+    margin: 0 auto;
+    /* 見出しを最上部へ置くためブロック表示に設定 */
+    display: block !important;
+    /* テキストを左寄せに設定 */
+    text-align: left;
+}
+
+/* ====================================
+   見出し設定
+   ==================================== */
+.about-section-h2 {
+    /* 文字サイズを設定 */
+    font-size: 2.2rem;
+    /* 下部の余白を設定 */
+    margin-bottom: 60px;
+    /* テキストを左寄せに設定 */
+    text-align: left;
+    /* ブロック要素として設定 */
+    display: block;
+    /* 横幅を100%確保 */
+    width: 100%;
+    /* 通常の配置順に戻す */
+    position: relative !important;
+    /* 位置数値をリセット */
+    top: auto !important;
+    left: auto !important;
+    /* 中央寄せ設定を無効化 */
+    transform: none !important;
+    /* 影を削除して鮮明にする */
+    text-shadow: none;
+    /* 文字色をグレーに設定 */
+    color: var(--text-color);
+}
+
+.about-section-h2 span {
+    /* サブタイトルのサイズを設定 */
+    font-size: 0.9rem;
+    /* アクセントカラーを適用 */
+    color: var(--accent-color);
+    /* 左側の余白を設定 */
+    margin-left: 15px;
+    /* 文字の太さを設定 */
+    font-weight: 400;
+}
+
+/* 見出し横のアクセントライン */
+.about-section-h2::before {
+    content: '';
+    /* 絶対配置に設定 */
+    position: absolute;
+    /* 線の開始位置を設定 */
+    left: 330px;
+    /* 垂直方向の中央付近に配置 */
+    top: 55%;
+    /* 右端まで伸ばす */
+    right: 0;
+    /* 線の太さを設定 */
+    height: 1.5px;
+    /* アクセントカラーを適用 */
+    background-color: var(--accent-color);
+}
+
+/* ====================================
+   Profile セクション
+   ==================================== */
+.about-flex {
+    /* 画像と文章を横並びに設定 */
+    display: flex;
+    /* 要素間の隙間を設定 */
+    gap: 60px;
+    /* 上端で整列 */
+    align-items: flex-start;
+}
+
+.about-image-area {
+    /* 幅を40%に設定 */
+    flex-basis: 40%;
+    /* 縮小を禁止 */
+    flex-shrink: 0;
+}
+
+.about-image-area img {
+    /* 幅を100%に設定 */
+    width: 100%;
+    /* 高さは自動設定 */
+    height: auto;
+}
+
+.about-text-content {
+    /* 幅を60%に設定 */
+    flex-basis: 60%;
+}
+
+.about-text-content h3 {
+    /* 氏名のサイズを設定 */
+    font-size: 1.8rem;
+    /* 下部の余白を設定 */
+    margin-bottom: 25px;
+}
+
+.about-text-content h3 span {
+    /* 英字氏名のサイズを設定 */
+    font-size: 1rem;
+    /* 文字色をグレーに設定 */
+    color: #666;
+}
+
+.profile-lead {
+    /* フォントの太さを設定 */
+    font-weight: 600;
+    /* 行間を設定 */
+    line-height: 1.8;
+    /* 下部の余白を設定 */
+    margin-bottom: 20px;
+}
+
+.profile-sub {
+    /* 行間を設定 */
+    line-height: 1.7;
+    /* 文字サイズを設定 */
+    font-size: 0.95rem;
+}
+
+/* ====================================
+   Strength セクション
+   ==================================== */
+.strength-table {
+    /* 幅を100%に設定 */
+    width: 100%;
+    /* 境界線を分離設定 */
+    border-collapse: separate;
+    /* 行間の余白を設定 */
+    border-spacing: 0 50px;
+    /* 上部のマージンを設定 */
+    margin-top: 20px;
+}
+
+.strength-table th {
+    /* 幅を30%に設定 */
+    width: 30%;
+    /* 上端に配置 */
+    vertical-align: top;
+    /* 左寄せに設定 */
+    text-align: left;
+    /* 右側のパディングを設定 */
+    padding-right: 40px;
+}
+
+.strength-table th .num {
+    /* ブロック要素に設定 */
+    display: block;
+    /* フォントファミリーを設定 */
+    font-family: 'Montserrat', sans-serif;
+    /* 数字のサイズを設定 */
+    font-size: 3rem;
+    /* 文字色を設定 */
+    color: var(--accent-color);
+    /* 行の高さを設定 */
+    line-height: 1;
+}
+
+.strength-table td {
+    /* 上端に配置 */
+    vertical-align: top;
+    /* 行間を設定 */
+    line-height: 1.8;
+}
+
+/* ====================================
+    Biography
+   ==================================== */
+.bio-timeline {
+    /* 左側に線を設定 */
+    border-left: 1px solid var(--accent-color);
+    /* 左側のパディングを設定 */
+    padding-left: 30px;
+    /* 左側のマージンを設定 */
+    margin-left: 15px;
+    /* 上部のマージンを設定 */
+    margin-top: 40px;
+}
+
+.bio-item {
+    /* 擬似要素の基準点に設定 */
+    position: relative;
+    /* 下部の余白を設定 */
+    margin-bottom: 50px;
+}
+
+.bio-item:last-child {
+    /* 最後の項目の余白をリセット */
+    margin-bottom: 0;
+}
+
+.bio-item::before {
+    content: '';
+    /* 絶対配置に設定 */
+    position: absolute;
+    /* ドットの位置を調整 */
+    left: -35.5px;
+    top: 10px;
+    /* ドットのサイズを設定 */
+    width: 10px;
+    height: 10px;
+    /* ドットの色を設定 */
+    background-color: var(--accent-color);
+    /* 正円に設定 */
+    border-radius: 50%;
+}
+
+.bio-item .year {
+    /* フォントファミリーを設定 */
+    font-family: 'Montserrat', sans-serif;
+    /* 文字の太さを設定 */
+    font-weight: 700;
+    /* 文字サイズを設定 */
+    font-size: 1.1rem;
+    /* 下部の余白を設定 */
+    margin-bottom: 8px;
+    /* 文字色を設定 */
+    color: var(--primary-color);
+    /* ブロック要素に設定 */
+    display: block;
+}
+
+.bio-item .detail {
+    /* 行間を設定 */
+    line-height: 1.7;
+    /* 文字サイズを設定 */
+    font-size: 0.95rem;
+    /* 文字色を設定 */
+    color: var(--text-color);
+}
+
+/* ====================================
+    Likes (横3列に設定)
+   ==================================== */
+.likes-image-grid {
+    /* フレックスボックスに設定 */
+    display: flex;
+    /* 折り返しを許可 */
+    flex-wrap: wrap;
+    /* 隙間を30pxに設定 */
+    gap: 30px;
+}
+
+.like-card {
+    /* スマホでは1列に設定 */
+    flex-basis: 100%;
+}
+
+@media (min-width: 768px) {
+    .like-card {
+        /* PCでは横3列(33.3%から隙間分を引く)に設定 */
+        flex-basis: calc(33.333% - 20px);
+    }
+}
+
+.like-card img {
+    /* 幅を100%に設定 */
+    width: 100%;
+    /* 高さを220pxに固定 */
+    height: 220px;
+    /* 比率を維持してトリミング */
+    object-fit: cover;
+    /* 下部の余白を設定 */
+    margin-bottom: 15px;
+}
+
+/* ====================================
+   レスポンシブ (スマートフォン向け)
+   ==================================== */
+@media (max-width: 767px) {
+    .about-section-h2::before {
+        /* 線の開始位置を調整 */
+        left: 160px;
+    }
+
+    .about-flex {
+        /* 縦並びに変更 */
+        flex-direction: column;
+        /* 隙間を設定 */
+        gap: 30px;
+    }
+
+    .strength-table th, .strength-table td {
+        /* ブロック要素に変更 */
+        display: block;
+        /* 幅を100%に設定 */
+        width: 100%;
+    }
+
+    .strength-table th {
+        /* 下部の余白を設定 */
+        margin-bottom: 10px;
+    }
+
+    .bio-timeline {
+        /* パディングを調整 */
+        padding-left: 20px;
+        /* マージンを調整 */
+        margin-left: 10px;
+    }
+
+    .bio-item::before {
+        /* ドットの位置を再調整 */
+        left: -25.5px;
+    }
+}

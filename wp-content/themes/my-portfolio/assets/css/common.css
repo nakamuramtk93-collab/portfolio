@@ -1,0 +1,1019 @@
+@charset "utf-8";
+
+/* ====================================
+    メイン設定
+   ==================================== */
+main {
+    /* スマホではmargin-leftを0にし、全幅を使用 */
+    /* pcでは左側にg-navを設定 */
+    margin-left: 0;
+    /* 固定ヘッダー（60px）の下からコンテンツを開始するための上部余白 */
+    padding-top: 60px;
+    /* 幅を100%に設定し、コンテンツの縮小を防ぐ */
+    width: 100%;
+    /*paddingやborderを幅に含めて計算し、レイアウト崩れを防ぐ */
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+
+    /* メインコンテンツのレイアウト修正 (PC用サイドバー対応) */
+    main {
+        /* 左側に固定されたサイドバーの幅（--sidebar-width）と同じ分だけメインコンテンツを右に移動 */
+        margin-left: var(--sidebar-width);
+        /* PCではサイドバーが固定されており、固定ヘッダーがないため、上部の余白を0にリセット */
+        padding-top: 0;
+        /* 幅を「画面全体の幅からサイドバーの幅を引いた残り」に設定 */
+        width: calc(100% - var(--sidebar-width));
+        /* paddingやborderを幅に含めて計算 */
+        box-sizing: border-box;
+    }
+}
+
+/* ====================================
+    キーヴィジュアル（共通設定）
+   ==================================== */
+/* すべてのページのKVに共通する「土台」の設定 */
+.key-visual {
+    /* 子要素（見出しなど）を中央に並べるためのFlexbox設定 */
+    display: flex;
+    /* 子要素を上から下へ縦方向に並べる */
+    flex-direction: column;
+    /* 垂直方向（中央）に配置 */
+    justify-content: center;
+    /* 水平方向（中央）に配置 */
+    align-items: center;
+    /* テキスト自体も中央揃えにする */
+    text-align: center;
+    /* 左右に最低限の余白を確保 */
+    padding: 0 20px;
+    /* 文字の色を変数から読み込む（基本は白系） */
+    color: var(--text-light-color);
+    /* 基本の配置をrelative（相対位置）に設定（下層ページで重ならないようにするため） */
+    position: relative;
+}
+
+/* ★トップページ（bodyに .home クラスがある時）だけの専用スタイル */
+.home .key-visual {
+    /* スクロールしても画面上部に留まるように設定 */
+    position: sticky;
+    /* 画面の最上部（0px）で固定を開始 */
+    top: 0;
+    /* 高さを「画面いっぱい」から「ヘッダー分(60px)」引いたサイズに固定 */
+    height: calc(100vh - 60px);
+    /* 背景色を濃い青に設定 */
+    background-color: var(--primary-color);
+    /* トップページ専用の背景画像を表示 */
+    background-image: url(../img/kv_image_main.png);
+    /* 画像を隙間なく、領域全体を覆うように表示 */
+    background-size: cover;
+    /* コンテンツセクションより一段下に配置（重なりの順序） */
+    z-index: 1;
+}
+
+.key-visual h1 {
+    position: absolute;
+    /* 見出しの高さを設定 */
+    top: 100px;
+    /* 見出しの横幅を設定 */
+    left: 20px;
+    /* テキストを左寄せに設定 */
+    text-align: left;
+    /* root要素（HTML）で設定されている文字サイズの1.8倍の大きさに設定*/
+    font-size: 1.8rem;
+    /* 下部に0.9remの余白を設定 */
+    margin-bottom: 0.9rem;
+    /* フォントを太字に設定 */
+    font-weight: 700;
+    text-shadow: 1px 1px 1px gray;
+}
+
+.key-visual p {
+    /* フォントサイズを調整 */
+    font-size: 1.2rem;
+    /* 下部に40pxの余白を設定 */
+    margin-bottom: 40px;
+}
+
+.key-visual h1 span {
+    color: var(--accent-color);
+    text-shadow: 1px 1px 1px gray;
+}
+
+@media (min-width: 768px) {
+
+    /* トップページかつPCサイズの時のみ適用 */
+    .home .key-visual {
+        /* PCではヘッダーが横（サイドバー）になるため、高さを純粋な画面いっぱい(100vh)にする */
+        height: 100vh;
+    }
+}
+
+/* キービジュアルの高さとフォントサイズをPC向けに修正 */
+.key-visual {
+    /* PCでは固定ヘッダーがないため、画面いっぱいの高さ（100vh）に戻す */
+    height: 100vh;
+    /* 左右のpaddingを広く（40px）設定 */
+    padding: 0 40px;
+}
+
+.key-visual h1 {
+    /* フォントサイズを大きく設定 */
+    font-size: 3.5rem;
+}
+
+.key-visual p {
+    /* フォントサイズを大きく設定 */
+    font-size: 1.5rem;
+}
+
+/* ====================================
+   スクロールボタン
+   ==================================== */
+/* scrollボタンのアニメーション */
+.scroll-down-button {
+    /* 親要素（kv）を基準に設定 */
+    position: absolute;
+    /* 親要素の下端から30px上の位置に配置 */
+    bottom: 30px;
+    /* 親要素（main/kv）の左端から50%の位置に配置 */
+    /* mainが既にサイドバー分右に寄っているため、単純な50%が正解です */
+    left: 50%;
+    /* 要素自身の幅の半分だけ左にずらし、正確に中央寄せ */
+    transform: translateX(-50%);
+    /* 文字色を白色に設定 */
+    color: var(--text-light-color);
+    /* フォントサイズを小さく設定 */
+    font-size: 0.8rem;
+    /* 文字を太字に設定 */
+    font-weight: 700;
+    /* 文字間隔を広げる */
+    letter-spacing: 2px;
+    /* Flexboxを有効にし、Textとikonを縦に並べる */
+    display: flex;
+    /* 要素を縦一列に並べる */
+    flex-direction: column;
+    /* 縦に並んだ子要素を中央に揃える */
+    align-items: center;
+    /* 透明度の変化を0.3秒かけて滑らかに実行 */
+    transition: opacity 0.3s;
+}
+
+/* スマホ表示用のメディアクエリは不要（50%で共通のため）なので削除して構いません */
+
+/* hover時の透明度を下げる */
+.scroll-down-button:hover {
+    opacity: 0.8;
+}
+
+/* scrollアイコン（下向き矢印）のスタイル */
+.scroll-icon {
+    /* ブロック要素として表示し、幅と高さを制御可能にする */
+    display: block;
+    /* 矢印の幅と高さを10pxに設定 */
+    width: 10px;
+    height: 10px;
+    /* 境界線（ボーダー）を白色のソリッド線で描画 */
+    border: solid var(--text-light-color);
+    /* 上、左のborderを非表示。右、下のボーダーを2pxの太さで表示（「く」に設定） */
+    border-width: 0 2px 2px 0;
+    /* 上部に5pxのmarginを設定し、テキストと間隔を空ける */
+    margin-top: 5px;
+    /* 以下の「bounce」アニメーションを1.5秒かけて無限に繰り返す */
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+
+    /* 0% (開始時)、20%、50% (中間地点)、80%、100% (終了時) の状態 */
+    0%, 20%, 50%, 80%, 100% {
+        /* 要素を縦方向（Y軸）に移動させず、45度回転した状態（矢印の基本形）を維持 */
+        transform: translateY(0) rotate(45deg);
+    }
+
+    /* 40% の時点の状態 */
+    40% {
+        /* 要素を縦方向に5ピクセル下に移動させ、45度回転した状態を維持（矢印が一番下に沈んだ状態） */
+        transform: translateY(5px) rotate(45deg);
+    }
+
+    /* 60% の時点の状態 */
+    60% {
+        /* 要素を縦方向に3ピクセル下に移動させ、45度回転した状態を維持（矢印が少し持ち上がった状態） */
+        transform: translateY(3px) rotate(45deg);
+    }
+}
+
+/* ====================================
+   各セクションの共通設定 (KVに重なるセクション)
+   ==================================== */
+.overlay-concept,
+.overlay-works,
+.overlay-about,
+.overlay-contact {
+    /* position: relative;を設定することで、kvに下層セクションが重なり合う */
+    position: relative;
+    /* スマホ向けに左右のパディングを狭く設定 */
+    padding: 40px 20px;
+    /* content内のテキストを中央へ */
+    text-align: center;
+    /* 半透明の背景色を設定し、下のKVを透けさせる */
+    background-color: var(--section-bg-solid);
+    /* KV（z-index: 1）よりも前面に出るように設定 */
+    z-index: 10;
+}
+
+/* 共通の見出しスタイル */
+.overlay-concept h2,
+.overlay-works h2,
+.overlay-about h2,
+.overlay-contact h2 {
+    /* フォントサイズを設定 */
+    font-size: 1.9rem;
+    /* 見出しの下に40pxの余白を設定し、コンテンツとの間にスペースを作る */
+    margin-bottom: 40px;
+    /* テキストを左寄りに設定 */
+    text-align: left;
+    /* ::after 疑似要素（アクセントライン）の位置決めの基準点とする */
+    position: relative;
+}
+
+/* 見出し（h2）の横に擬似クラス（border）を設定 (スマホ用) */
+.overlay-works h2::before,
+.overlay-about h2::before {
+    /* 何もない空間に意味を持たせる */
+    content: '';
+    /* 親要素（.overlay h2）に対し、子要素を設定 */
+    position: absolute;
+    left: 175px;
+    top: 38px;
+    /* 幅をコンテンツの右端まで広げる */
+    right: 0px;
+    /* 高さを低く設定することで棒線（border）にする */
+    height: 1.5px;
+    background-color: var(--accent-color);
+}
+
+/* 見出し（h2）のサブコメント */
+.overlay-concept span,
+.overlay-works span,
+.overlay-about span,
+.overlay-contact span {
+    /* フォントのサイズを縮小 */
+    font-size: 0.8rem;
+    /* フォントカラーを濃い青色に設定 */
+    color: var(--accent-color);
+}
+
+@media (min-width: 768px) {
+
+    /* コンテンツセクションのpaddingと見出しをPC向けに修正 */
+    .overlay-works,
+    .overlay-about,
+    .overlay-contact {
+        /* 上下80px、左右50pxにpaddingを増やし、PCでの視認性を高める */
+        padding: 80px 50px;
+    }
+
+    .overlay-works h2,
+    .overlay-about h2,
+    .overlay-contact h2 {
+        /* PC向けに見出しのフォントサイズを大きく設定 */
+        font-size: 2.5rem;
+        /* 下部マージンを50pxに増やす */
+        margin-bottom: 50px;
+    }
+
+    /* 見出し（h2）の横に擬似クラス（border）を設定 (PC用) */
+    .overlay-works h2::before,
+    .overlay-about h2::before {
+        content: '';
+        position: absolute;
+        /* 文字が終わる位置から線を開始 */
+        left: 330px;
+        top: 45px;
+        width: 1100px;
+        height: 1.5px;
+        background-color: var(--accent-color);
+    }
+}
+
+/* ====================================
+   コンセプトセクションの個別設定
+   ==================================== */
+.overlay-concept {
+    /* contentセクションにのみ適用される上部の余白 */
+    padding-top: 5vh;
+    /* margin-topの高さから下層sectionが見える高さに設定 */
+    height: calc(75vh - 40px);
+    /* h2を子要素に設定して、見出しの位置を調整 */
+    position: relative;
+}
+
+.overlay-concept h2 {
+    /* 親要素（overlay-concept）を設定し、コメント（h2）を左上に設定 */
+    position: absolute;
+    /* 上部を調整 */
+    top: 20px;
+    /* 左端を調整 */
+    left: 5px;
+    /* フォントサイズを調整 */
+    font-size: 1.9rem;
+    /* フォントを強調 */
+    text-shadow: 1px 1px 1px white;
+    /* 上下部に余白を設定 */
+    margin: 2.5rem;
+    /* フォントを太字に設定 */
+    font-weight: 700;
+    /* フォントの色を設定 */
+    color: var(--accent-color);
+    /* テキストを左寄りに調整 */
+    text-align: left;
+    /* ブロック要素として表示し、幅と高さを制御可能にする */
+    display: block;
+}
+
+.overlay-concept p {
+    /* 余白を設定し、コメントの位置を調整 */
+    margin: 200px 0 0 25px;
+    /* 線と文字の間の余白を確保 */
+    /* 上右下左の余白を設定 */
+    padding: 0 7px 0 30px;
+    /* フォントサイズを調整 */
+    font-size: 1.2rem;
+    /* フォントを太字に設定 */
+    font-weight: 700;
+    /* 下部に40pxの余白を設定 */
+    margin-bottom: 40px;
+    /* テキストを左寄りに調整 */
+    text-align: left;
+    /* ::after 疑似要素（アクセントライン）の位置決めの基準点とする */
+    position: relative;
+}
+
+.overlay-concept p::before {
+    content: '';
+    /* 親要素（p）*/
+    position: absolute;
+    /* 擬似クラスをpの左端に配置 */
+    left: 0;
+    /* 線の開始位置の設定*/
+    top: 20px;
+    /* 線の太さの設定*/
+    width: 1.5px;
+    /* 線の長さの設定*/
+    height: 160px;
+    /* 線の色の設定*/
+    background-color: var(--accent-color);
+}
+
+.overlay-concept span {
+    /* フォントサイズを調整 */
+    font-size: 0.9rem;
+    /* フォントを細字に設定 */
+    font-weight: 80;
+    /* 親要素（.overlay-contact）から文字色（白）を継承する */
+    color: inherit;
+}
+
+@media (min-width: 768px) {
+
+    /* 1. コンセプトセクション全体をFlexコンテナにする */
+    .overlay-concept {
+        display: flex;
+        /* 子要素（h2とp）の横方向の配置を調整 */
+        justify-content: space-between;
+        /* 子要素（h2とp）を縦方向の中央揃え */
+        align-items: center;
+        /* PC向けにpaddingを修正（他のセクションに合わせて80px 50px） */
+        padding: 80px 50px;
+        /* h2とpを横並びにするため、高さを自動調整に戻す */
+        margin: 120px 0 0 0;
+    }
+
+    /* 2. h2とp의幅を設定し、横並びにする */
+    .overlay-concept h2 {
+        /* position:absoluteを解除 */
+        position: static;
+        /* 横並び時の幅を設定 */
+        flex-basis: 40%;
+        /* テキストを左寄せに戻す */
+        text-align: center;
+        /* スマホ向けに設定されていた余白をリセットまたは調整 */
+        margin: 0;
+        /* フォントサイズを調整 */
+        font-size: 3rem;
+    }
+
+    .overlay-concept p {
+        /* 横並び時の幅を設定 */
+        flex-basis: 60%;
+        /* スマホ向けに設定されていた余白をリセット*/
+        margin: 0;
+        /* フォントサイズを調整 */
+        font-size: 2em;
+    }
+
+    .overlay-concept span {
+        /* フォントサイズを調整 */
+        font-size: 1.2rem;
+    }
+}
+
+/* ====================================
+   カードセクション (Worksのトップページ用)
+   ==================================== */
+.card-container {
+    /* Flexboxを有効にし、子要素（.card）を柔軟に配置 */
+    display: flex;
+    /* 子要素間に均等なスペースを空ける */
+    justify-content: space-around;
+    /* 子要素間の隙間（間隔）を20pxに設定 */
+    gap: 20px;
+    /* カードがコンテナ内に収まらない場合、折り返して次の行へ配置する */
+    flex-wrap: wrap;
+    /* コンテナの最大幅を1100pxに制限 */
+    max-width: 1100px;
+    /* 左右を auto に設定し、コンテナ自体を中央寄せにする */
+    margin: 0 auto;
+}
+
+.card {
+    /* モバイルではカードの幅を100%に設定し、1列表示にする */
+    flex-basis: 100%;
+    /* 高さの内容に応じて自動調整 */
+    height: auto !important;
+    /* カードの最小の高さを250pxに設定し、コンテンツが少ない場合でも最低限の高さを維持 */
+    min-height: 250px;
+    /* 下部のパディングを0にリセット */
+    padding-bottom: 0;
+    /* 子要素（内部要素）の位置決めの基準点とする */
+    position: relative;
+    /* 要素からはみ出た内容を非表示にする（角丸や画像のはみ出し防止） */
+    overflow: hidden;
+    /* 背景色を透明に設定 */
+    background-color: transparent;
+    /* 角を丸くする */
+    border-radius: 10px;
+    /* 初期状態では影を非表示 */
+    box-shadow: none;
+    /* マウスオーバー時のアニメーションを0.3秒かけて滑らかに実行 */
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    /* マウスオーバー時、カードを縦方向（Y軸）に10px上に持ち上げる */
+    transform: translateY(-10px);
+    /* マウスオーバー時、影を濃くして立体感を出す */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-inner-wrapper {
+    /* 幅を親要素（.card）に合わせて100%に設定 */
+    width: 100%;
+    background-color: transparent;
+    /* Flexboxを有効にし、画像エリアとコメントエリアを縦に並べる */
+    display: flex;
+    /* 要素を縦一列に並べる */
+    flex-direction: column;
+    /* 縮小しないように設定（必須ではないが、構造の固定に役立つ） */
+    flex-shrink: 0;
+    /* 高さを親要素（.card）に合わせて100%に設定 */
+    height: 100%;
+    /* 内部要素の位置決めの基準点とする */
+    position: relative;
+}
+
+.card-content {
+    /* 可能な限り高さを拡張する（画像エリアを広く取る） */
+    flex-grow: 1;
+    /* 縮小を許可する */
+    flex-shrink: 1;
+    width: 100%;
+    /* はみ出しを非表示に */
+    overflow: hidden;
+    padding: 0;
+    /* 画像エリアの背景を白色に設定 */
+    background-color: white;
+    /* 内部要素の位置決めの基準点とする */
+    position: relative;
+}
+
+.card-comment-area {
+    /* コメントエリアの高さを70pxに固定 */
+    height: 70px;
+    /* 高さを固定するため、拡大・縮小しないように設定 */
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* 透過性の高い背景色（--section-bg-transparent）を設定 */
+    background-color: var(--section-bg-transparent);
+    /* Flexboxを有効化 */
+    display: flex;
+    /* 要素を縦一列に並べる */
+    flex-direction: column;
+    /* 縦方向の中央に揃える */
+    justify-content: center;
+    /* 横方向の中央に揃える */
+    align-items: center;
+    /* 複数行を扱う場合の横方向の中央寄せ（この場合は縦一列なので補助的） */
+    align-content: center;
+    /* 上下5px、左右15pxのパディングを設定 */
+    padding: 5px 15px;
+}
+
+.card-content .card-image {
+    /* 幅を親要素に合わせて100%に設定 */
+    width: 100%;
+    /* 高さを親要素に合わせて100%に設定 */
+    height: 100%;
+    /* 画像が欠けることなく領域全体を覆うように拡大・トリミング */
+    object-fit: cover;
+    /* 通常の相対位置に戻す（以前の設定をリセット） */
+    position: relative;
+    top: auto;
+    left: auto;
+    /* ブロック要素として表示 */
+    display: block;
+}
+
+@media (min-width: 768px) {
+
+    /* 4. カードレイアウトの修正 (2列表示に戻す) */
+    .card-container {
+        /* カード間の隙間を30pxに広げる */
+        gap: 30px;
+    }
+
+    .card {
+        /* カードの幅を「コンテナの約半分の幅からギャップの半分を引いた分」に設定し、2列表示にする */
+        flex-basis: calc(45% - 15px);
+    }
+}
+
+/* ====================================
+    WORKSセクションの個別設定
+   ==================================== */
+.overlay-works {
+    /* WORKSの下部パディングを10pxに大幅に減らし、ABOUTセクションとの間隔を詰める */
+    padding-bottom: 10px;
+}
+
+/* ====================================
+    Aboutセクションの個別設定
+   ==================================== */
+/* 下層ページのKV（見出しエリア）が透けて、後のコンテンツと重なるのを防ぐ設定 */
+.lower-kv {
+    background-color: var(--primary-color);
+    height: 300px;
+    z-index: 5;
+    /* absolute配置された見出し(h1)をこのエリア内に収めるための基準点 */
+    position: relative;
+}
+
+.overlay-about {
+    height: auto;
+    position: relative;
+}
+
+/* 共通設定を活かしつつ、About特有の重なり（横線の位置）だけを上書きします */
+.overlay-about h2::before {
+    /* 文字と被らないよう、leftの位置をWorks（175px）から調整します */
+    /* 文字数に合わせてこの数値を大きくしてください */
+    left: 280px;
+}
+
+@media (min-width: 768px) {
+
+    /* PC表示時の横線の開始位置も調整 */
+    .overlay-about h2::before {
+        left: 450px;
+        /* PCでの文字幅に合わせた調整 */
+    }
+}
+
+/* 1. PCレイアウトを適用する親コンテナ（.about-container）をFlexboxにする */
+.about-container {
+    /* 横並びにするためのFlexbox設定 */
+    display: flex;
+    /* スマホでは縦並びにするため方向を指定 */
+    flex-direction: column;
+    /* 要素間の隙間を設定 */
+    gap: 30px;
+    /* コンテナの最大幅を1100pxに制限 */
+    max-width: 1100px;
+    /* 左右を auto に設定し、中央寄せ */
+    margin: 0 auto;
+}
+
+/* 2. 画像エリアの幅を設定 (左側) */
+.about-image-area {
+    /* 幅を全幅に設定（スマホ用） */
+    width: 100%;
+}
+
+/* 4. 画像要素の微調整 */
+.about-image-area img {
+    /* 幅を親要素に合わせて100%に設定 */
+    width: 100%;
+    /* 高さは自動にし、比率（aspect-ratio）を優先させる */
+    height: auto;
+    /* 重要：アスペクト比を「5:4（若干横長）」に固定 */
+    aspect-ratio: 5 / 4;
+    /* 重要：画像が欠けることなく領域全体を覆うように拡大・トリミング */
+    object-fit: cover;
+    /* 切り抜きの基準を中央に設定 */
+    object-position: center;
+    /* ブロック要素として表示 */
+    display: block;
+    /* 角を丸くする */
+    border-radius: 4px;
+}
+
+.overlay-about h3,
+.overlay-about span {
+    /* 文章を左側へ */
+    text-align: left;
+    /* 画像と文章に上下30pxの余白を設定 */
+    margin: 30px 0;
+}
+
+.overlay-about p {
+    /* 文章を左側へ */
+    text-align: left;
+    /* ::after 疑似要素（アクセントライン）の位置決めの基準点とする */
+    position: relative;
+}
+
+/* ★Aboutセクションの縦線を削除しました */
+/* .overlay-about p::before は削除されました */
+
+@media (min-width: 768px) {
+    .overlay-about {
+        /* --- 修正：PC版でも固定高を解除 --- */
+        height: auto;
+        padding-bottom: 100px;
+    }
+
+    .about-container {
+        /* 横並びにする */
+        flex-direction: row;
+        /* 画像とテキストの間に隙間を空ける */
+        gap: 60px;
+        /* 子要素を縦方向に中央揃えにする */
+        align-items: center;
+    }
+
+    /* 2. 画像エリアの幅を設定 (左側) */
+    .about-image-area {
+        /* 幅を40%に設定 */
+        flex-basis: 40%;
+        /* 縮小しないようにする */
+        flex-shrink: 0;
+    }
+
+    /* 3. テキストエリアの幅を設定 (右側) */
+    .about-text-content {
+        /* 幅を60%に設定 */
+        flex-basis: 60%;
+        /* 拡大を許可する */
+        flex-grow: 1;
+    }
+
+    /* 5. h3とpのスマホ向け設定をリセット */
+    .overlay-about h3,
+    .overlay-about p {
+        /* 左寄せを維持 */
+        text-align: left;
+        /* マージンを調整 */
+        margin: 0 0 15px 0;
+        font-size: 1.4rem;
+    }
+}
+
+/* ====================================
+    Contactセクションの個別設定
+   ==================================== */
+.overlay-contact {
+    /* 濃い青（--primary-color）で背景色を上書き */
+    background-color: var(--primary-color);
+    /* 文字色を白（--text-light-color）に設定 */
+    color: var(--text-light-color);
+    /* paddingやborderを幅と高さに含めて計算 */
+    box-sizing: border-box;
+    /* 要素からはみ出た内容を非表示にする */
+    overflow: hidden;
+}
+
+.overlay-contact .email-address-link {
+    /* 親要素（.overlay-contact）から文字色（白）を継承する */
+    color: inherit;
+    /* テキストの下線（リンクの装飾）を非表示にする */
+    text-decoration: none;
+    /* フォントサイズを1.1remに設定 */
+    font-size: 1.1rem;
+    /* 幅と高さを設定可能にするため、インラインブロック要素として表示 */
+    display: inline-block;
+    /* 上部に10pxの余白を設定 */
+    margin-top: 10px;
+    /* マウスオーバー時の透明度の変化を0.3秒かけて滑らかに実行 */
+    transition: opacity 0.3s;
+}
+
+.overlay-contact .email-address-link:hover {
+    /* マウスオーバー時、透明度を下げて視覚的な変化を出す */
+    opacity: 0.8;
+}
+
+.overlay-contact h2 {
+    /* 親要素（.overlay-contact）から文字色（白）を継承する */
+    color: inherit;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .overlay-contact h2 {
+        font-size: 3rem;
+        text-shadow: 1px 1px 1px black;
+    }
+}
+
+/* ====================================
+    スクロールアンカーの調整 (固定ヘッダー対策)
+   ==================================== */
+#works,
+#about,
+#contact {
+    /* 固定ヘッダー（60px）でタイトルが隠れるのを防ぐために、追加の余白（20px）も含めて80pxに設定 */
+    scroll-margin-top: 80px;
+}
+
+/* ====================================
+    もっと見るボタンの共通スタイル
+   ==================================== */
+.more-button-area {
+    /* セクションの下端にスペースを空ける */
+    margin-top: 50px;
+    /* ボタンを中央に配置するためにテキストを中央揃えにする */
+    text-align: center;
+}
+
+.more-button {
+    /* リンクの装飾設定（テキストリンクとして機能させる） */
+    /* ブロック要素のように振る舞いつつ、内容の幅に収まるように設定 */
+    display: inline-block;
+    /* 文字色は共通変数（濃いグレー）から取得して設定 */
+    color: var(--text-color);
+    /* テキストの下線（リンクの装飾）を削除する */
+    text-decoration: none;
+    /* フォントサイズを1.0remに設定 */
+    font-size: 1.0rem;
+    /* フォントを太字（700）に設定 */
+    font-weight: 700;
+    /* 文字間隔を1pxに設定 */
+    letter-spacing: 1px;
+
+    /* 矢印（::before/::after）の位置決めの基準点とする（重要！） */
+    position: relative;
+
+    /* 矢印のスペースを確保するために右側にパディングを追加（テキストと矢印の間隔） */
+    padding-right: 35px;
+    /* 上部に5pxのパディングを追加 */
+    padding-top: 5px;
+    /* 下部に5pxのパディングを追加 */
+    padding-bottom: 5px;
+
+    /* アニメーションの対象（拡大と色変化）を設定（0.3秒かけて滑らかに変化） */
+    transition: color 0.3s, transform 0.3s;
+
+    /* ボックススタイルをリセット（背景なしのテキストリンク化） */
+    background-color: transparent;
+    /* 角丸を削除 */
+    border-radius: 0;
+}
+
+/* 棒線（矢印の本体）：::before */
+.more-button::before {
+    /* 擬似クラスとして空のコンテンツを生成 */
+    content: '';
+    /* 親要素（.more-button）を基準に位置を絶対指定 */
+    position: absolute;
+    /* 要素の上端から50%の位置に配置 */
+    top: 50%;
+    /* 矢印の全体幅（線+先端）の左端の位置を調整（ボタンの右端と一致させる） */
+    right: 0px;
+
+    /* 線の幅と高さを設定 */
+    width: 30px;
+    /* 線の長さ */
+    height: 2px;
+    /* 線の太さ */
+    /* 棒線のデフォルト色を濃いグレーに設定 */
+    background-color: var(--text-color);
+
+    /* Y軸方向に自身の高さの半分だけ上に移動させ、上下中央に配置 */
+    transform: translateY(-50%);
+
+    /* ホバー時の色変化を滑らかにする */
+    transition: background-color 0.3s;
+}
+
+/* 矢印の先端（山形）：::after */
+.more-button::after {
+    /* 擬似クラスとして空のコンテンツを生成 */
+    content: '';
+    /* 親要素（.more-button）を基準に位置を絶対指定 */
+    position: absolute;
+    /* 要素の上端から50%の位置に配置 */
+    top: 50%;
+    /* 棒線の終端（右端）に合わせて配置（棒線よりも2px rightにずらす） */
+    right: -2px;
+
+    /* 矢印の先端の形状をCSSボーダーで作成 */
+    width: 8px;
+    /* 先端の幅 */
+    height: 8px;
+    /* 先端の高さ */
+    /* 2pxの太さでデフォルト色（濃いグレー）のボーダーを設定 */
+    border: 2px solid var(--text-color);
+    /* 左側のボーダーを非表示にする */
+    border-left: none;
+    /* 下側のボーダーを非表示にする（これにより山形記号になる） */
+    border-bottom: none;
+
+    /* Y軸方向に自身の高さの半分だけ上に移動、かつ45度回転させて山形記号を配置 */
+    transform: translateY(-50%) rotate(45deg);
+
+    /* ホバー時の色変化を滑らかにする */
+    transition: border-color 0.3s;
+}
+
+/* ホバー時のアニメーション（文字の拡大と色変更） */
+.more-button:hover {
+    /* マウスオーバー時に文字色をアクセントカラーに変更 */
+    color: var(--text-sub-color);
+    /* 拡大アニメーション：要素を1.05倍に拡大 */
+    transform: scale(1.05);
+}
+
+.more-button:hover::before {
+    /* ホバー時に棒線の色をアクセントカラーに変更 */
+    background-color: var(--text-sub-color);
+}
+
+.more-button:hover::after {
+    /* ホバー時に先端のボーダーの色をアクセントカラーに変更 */
+    border-color: var(--text-sub-color);
+}
+
+@media (min-width: 768px) {
+    .more-button {
+        /* PC向けに右パディングを広げる（矢印との間隔調整） */
+        padding-right: 45px;
+        /* PC向けに上部パディングを調整 */
+        padding-top: 10px;
+        /* PC向けに下部パディングを調整 */
+        padding-bottom: 10px;
+        /* PC向けにフォントサイズを大きくする */
+        font-size: 1.4rem;
+    }
+
+    .more-button:hover {
+        /* PCでは拡大率を1.08倍に上げる */
+        transform: scale(1.08);
+    }
+
+    /* 棒線（::before）のPC用サイズ調整 */
+    .more-button::before {
+        /* 線の長さを長く */
+        width: 40px;
+        /* 線の太さを太く */
+        height: 3px;
+    }
+
+    /* 先端（::after）のPC用サイズ調整 */
+    .more-button::after {
+        /* 先端の幅を調整 */
+        width: 10px;
+        /* 先端の高さを調整 */
+        height: 10px;
+        /* ボーダーを太く */
+        border-width: 3px;
+    }
+}
+
+/* ====================================
+   Contact Form 7 デザイン調整
+   ==================================== */
+/* フォーム全体の幅と余白 */
+.wpcf7 {
+    max-width: 600px;
+    margin: 30px auto 0;
+}
+
+/* 入力ラベルを白文字にして読みやすく */
+.wpcf7 label {
+    color: var(--text-light-color);
+    text-align: left;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* 入力欄（テキスト・メール・本文）共通 */
+.wpcf7-form-control:not(.wpcf7-submit) {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    /* 入力しやすさを優先して白背景に */
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* 送信ボタン（サイト内の他のボタンと統一感を出す） */
+.wpcf7-submit {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 12px 60px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.wpcf7-submit:hover {
+    opacity: 0.8;
+}
+
+/* エラー文言等の色（背景色と被らないように） */
+.wpcf7-not-valid-tip {
+    color: #ffdada;
+    font-size: 0.9rem;
+}
+
+/* ====================================
+   お問い合わせフォームの表示調整
+   ==================================== */
+
+/* 1. ラベル（氏名、メールアドレス等の文字）を読みやすくする */
+.wpcf7-form label {
+    color: #333 ;
+    /* 背景が白なら濃いグレーにする */
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* 2. 入力欄（テキストボックス・エリア）の調整 */
+.wpcf7-form-control:not(.wpcf7-submit) {
+    background-color: #f9f9f9 ;
+    /* ほんのりグレーの背景 */
+    color: #333 ;
+    /* 入力文字を黒にする */
+    border: 1px solid #ccc ;
+    /* 薄いグレーの枠線 */
+    border-radius: 4px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+/* 3. 送信ボタンをサイトのテーマカラーに合わせる */
+.wpcf7-submit {
+    background-color: var(--primary-color, #1a2a3a) ;
+    color: #fff ;
+    padding: 15px 60px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 0;
+    transition: 0.3s;
+}
+
+.wpcf7-submit:hover {
+    opacity: 0.8;
+}
+
+/* ====================================
+    Contactセクション内のボタン調整
+====================================*/
+/* ボタンの文字と、右側の矢印を白にする */
+.overlay-contact .more-button {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* 矢印の横棒（ライン）を白にする */
+.overlay-contact .more-button::before {
+    background-color: #ffffff ;
+}
+
+/* 念のため「くの字」部分も再度白に指定 */
+.overlay-contact .more-button::after {
+    border-top: 1px solid #ffffff ;
+    border-right: 1px solid #ffffff ;
+}
